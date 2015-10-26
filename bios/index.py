@@ -13,7 +13,6 @@ def LogIn():
     if LogIndataNormal in Data:
         loggedin = 1
         print("Welkom, " + Username + ". \nFunctie: gebruiker")
-        print()
         pass
     elif LogIndataProvider in Data:
         loggedin = 2
