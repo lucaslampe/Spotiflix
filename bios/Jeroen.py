@@ -11,7 +11,8 @@ def spotify(titel):
     spotify = spotipy.Spotify()
     suggestie = spotify.search(q=titel, limit=1)
 
-    return suggestie
+    return suggestie['tracks']['items'][0]['album']['external_urls']
 
 
-pprint.pprint(spotify("Conquest of Paradise"))
+
+print(spotify("SPY"))
