@@ -1,6 +1,6 @@
-Gebruikersnaam;Wachtwoord;
-Henk;12345;1
-Eric;geheim;0
-John;qwerty123;0
-Kees;apenslapen;0
-Jasper;kindervoeding;0
+Gebruikersnaam;Wachtwoord;Rol;Email
+Henk;12345;1;miniproject@mailinator.com
+Eric;geheim;0;miniproject@mailinator.com
+John;qwerty123;0;miniproject@mailinator.com
+Kees;apenslapen;0;miniproject@mailinator.com
+Jasper;kindervoeding;0;miniproject@mailinator.com
