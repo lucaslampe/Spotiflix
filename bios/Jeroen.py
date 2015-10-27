@@ -13,6 +13,6 @@ def spotify(titel):
     spot = spotipy.Spotify()
     suggestie = spot.search(q=titel, limit=1)
 
-    return suggestie['tracks']['items'][0]['album']['external_urls']
+    return suggestie['tracks']['items'][0]['album']['external_urls']['spotify']
 
 print(spotify("Conquest of Paradise"))
