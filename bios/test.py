@@ -11,5 +11,5 @@ page = urlopen("http://www.filmtotaal.nl/api/filmsoptv.xml?apikey="+filmtotaal_a
 
 tree = ET.parse(page)
 root = tree.getroot()
-for film in root.iter('film'):
+for film in root.iter('titel'):
     print(film.text)
