@@ -10,8 +10,8 @@ def spotify(titel):
     """
     spotify = spotipy.Spotify()
     suggestie = spotify.search(q=titel, limit=1)
-    link = suggestie['url']
-    return link
+
+    return suggestie
 
 
 pprint.pprint(spotify("Conquest of Paradise"))
