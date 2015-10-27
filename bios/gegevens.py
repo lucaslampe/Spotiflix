@@ -1,11 +1,19 @@
 from tkinter import *
 from tkinter.messagebox import showinfo
+from bios.validatie import *
 
-def antwoord(text):
-    if "@aanbieder.nl" in text:
-        showinfo(title='popup', message='U bent nu ingelogd als aanbieder ')
+
+def antwoord(naam, wachtwoord):
+    if valideren(naam,wachtwoord) == TRUE:
+        showinfo(title='popup', message='U bent nu ingelogd als'+naam)
+    elif naam == "":
+        showinfo(title='popup', message='U heeft geen naam ingevuld')
+    elif wachtwoord == ""
+        showinfo(title='popup', message='U heeft geen wachtwoord ingevuld')
     else:
-        showinfo(title='popup', message='U bent nu ingelogd als klant ')
+        showinfo(title='popup', message='Combinatie van naam en wachtwoord onjuist')
+
+
 
 window = Tk()
 label = Label(window, text='Voer uw inlognaam in:', )
@@ -20,19 +28,20 @@ naam.grid(row=0, column=1)
 wachtwoord.grid(row=1, column=1)
 
 button = Button(window, text='Voer in',
-command=(lambda: antwoord(naam.get())))
+command=(lambda: antwoord(naam.get(),wachtwoord.get())))
 button.grid(row=2)
 window.mainloop()
 
 
 
 aanbieders = {
-    'Man on fire': 'Harderwijk',
-    'Saving Private Ryan': 'Amersfoort',
-    'Scarface': 'Utrecht'
+    'Harderwijk': {'Man on fire': '10.10', 'Man on water': '10.20'},
+    'Amersfoort': {'Man on the moon': '10,50', 'Man on ground': '10.15'},
+    'Utrecht': {'Scarface': '09,10', 'Scarfuck': '12.10'}
 }
 
-def antwoord():
+def films():
+
     showinfo(title='popup', message='Deze film kunt u kijken bij bioscoop ')
 
 
