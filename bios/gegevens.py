@@ -4,11 +4,12 @@ from bios.validatie import *
 
 
 def antwoord(naam, wachtwoord):
-    if valideren(naam,wachtwoord) == TRUE:
+    if valideren(naam,wachtwoord) == True:
         showinfo(title='popup', message='U bent nu ingelogd als'+naam)
+        window.destroy()
     elif naam == "":
         showinfo(title='popup', message='U heeft geen naam ingevuld')
-    elif wachtwoord == ""
+    elif wachtwoord == "":
         showinfo(title='popup', message='U heeft geen wachtwoord ingevuld')
     else:
         showinfo(title='popup', message='Combinatie van naam en wachtwoord onjuist')
@@ -34,31 +35,35 @@ window.mainloop()
 
 
 
+
 aanbieders = {
     'Harderwijk': {'Man on fire': '10.10', 'Man on water': '10.20'},
     'Amersfoort': {'Man on the moon': '10,50', 'Man on ground': '10.15'},
     'Utrecht': {'Scarface': '09,10', 'Scarfuck': '12.10'}
 }
 
-def films():
-
-    showinfo(title='popup', message='Deze film kunt u kijken bij bioscoop ')
+def On_Send_Clicked(titel):
+    window2 = Tk()
+    window2.geometry("1200x600")
+    Label(window2, text=titel).grid(row=0)
 
 
 window = Tk()
+window.geometry("1200x600")
 label = Label(window, text='Films die vandaag beschikbaar zijn:')
 label.grid(row=0)
 
-knop = Checkbutton(window, text='Man on fire',command=antwoord)
-knop2= Checkbutton(window, text='Saving Private Ryan',command=antwoord)
-knop3= Checkbutton(window, text='Scarface', command=antwoord)
 
-knop.grid(row=1, sticky=W)
-knop2.grid(row=2, sticky=W)
-knop3.grid(row=3, sticky=W)
+Button(window, text="Man on fire", command=lambda: On_Send_Clicked("Man of fire")).place(x=100, y=500)
+Button(window, text="Man on water", command=lambda: On_Send_Clicked("Man of water")).place(x=200, y=500)
+Button(window, text="Man on ground", command=lambda: On_Send_Clicked("Man of ground")).place(x=300, y=500)
+
+
+
 
 
 window.mainloop()
+
 
 
 

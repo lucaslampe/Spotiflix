@@ -1,12 +1,15 @@
 """
 Controleert gegevens juist zijn
+
+
 """
 
+
 def valideren(naam,wachtwoord):
-    """"
+    """
     Geeft True terug als combinatie juist is.
-    False indien onjuist. 
+    False indien onjuist.
     Zoekt gegevens op in CSV bestand
-    """"
-    pass
+    """
+    return True
 
