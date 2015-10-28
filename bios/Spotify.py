@@ -23,8 +23,8 @@ def spotify(titel):
         print("Helaas geen nummer gevonden")
     return None
 
-
-song = spotify("Conquest of paradise")
+# Test code
+# song = spotify("Conquest of paradise")
 if song is not None:
     for i in range(0,2):
         print(song[i])
