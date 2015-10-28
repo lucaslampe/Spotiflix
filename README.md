@@ -1,4 +1,6 @@
 # Spotiflix
+<img src="http://www.hu.nl/includes/img/HU-Platform/hu-logo-nl.svg" width="200">
+
 [![Build Status](https://travis-ci.org/lucaslampe/Spotiflix.svg?branch=master)](https://travis-ci.org/lucaslampe/Spotiflix)
 ```
 The MIT License (MIT)
