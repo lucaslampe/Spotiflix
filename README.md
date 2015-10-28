@@ -1,2 +1,2 @@
 # Spotiflix
-<img src="http://i.imgur.com/j6VtojC.png" width="150">
+[![Build Status](https://travis-ci.org/lucaslampe/Spotiflix.svg?branch=master)](https://travis-ci.org/lucaslampe/Spotiflix)
