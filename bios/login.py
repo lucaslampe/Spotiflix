@@ -10,7 +10,7 @@ def getdata():
     global userdata
     global email
     userdata = []
-    with open('logingegevens.csv', mode='r') as f:
+    with open('gegevens.csv', mode='r') as f:
         reader = csv.reader(f)
         for num, row in enumerate(reader):
             if username in row[0]:
@@ -20,7 +20,7 @@ def LogIn():
     global loggedin
     global username
     loggedin = 0
-    database = open("logingegevens.csv", encoding='utf-8')
+    database = open("gegevens.csv", encoding='utf-8')
     data = (database.read())
     username = input("Username: ")
     password = input("Password: ")
