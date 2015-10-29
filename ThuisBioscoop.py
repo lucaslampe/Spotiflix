@@ -207,7 +207,7 @@ def show_all_films_page():
     title_label = Label(movies_Window, text="De films van "+time.strftime("%d-%m-%Y")+":", bg="lightgreen")
     title_label.place(x=10,y=10)
 
-    if len(todaysMovies > 1):
+    if (len(todaysMovies) > 1):
         Button(movies_Window, text="Vorige pagina", command= lambda : Next_Page(-1), bg="darkgreen", fg="lightgreen").place(x=10, y=565)
         Button(movies_Window, text="Volgende pagina", command= lambda : Next_Page(1), bg="darkgreen", fg="lightgreen").place(x=1093, y=565)
 
