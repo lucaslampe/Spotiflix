@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.messagebox import showinfo
-from bios.validatie import *
+
+from validatie import *
 
 
 def antwoord(naam, wachtwoord):
