@@ -50,7 +50,7 @@ def controleren_in_database(uniekecode):
     for i in bestand:
         if i['kaartcode'] == str(uniekecode):
             tjeerd = True
-    if tjeerd == True:
+    if tjeerd:
         showinfo(title='', message='De Code Is Correct!')
 
         #REMOVE PERSON WITH EVERY INFO FROM FILE
@@ -64,7 +64,7 @@ def controleren_in_database(uniekecode):
                 writablefile.write(row)
         writablefile.close()
 
-    elif tjeerd == False:
+    elif not tjeerd:
         showinfo(title='', message='De Code Is Incorrect!')
 
 
