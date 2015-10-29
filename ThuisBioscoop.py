@@ -217,7 +217,7 @@ def show_all_films_page():
 
 def create_films():
     global movies_Container
-    if(movies_Container is not None):
+    if movies_Container is not None:
         movies_Container.destroy()
 
     movies_Container = Canvas(movies_Window, width=1180, height=500, bg="green")
