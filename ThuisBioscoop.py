@@ -10,7 +10,6 @@ import pyqrcode
 import csv
 import spotipy
 import webbrowser
-import zandbak
 
 
 KlantData = 'KlantData.csv'
@@ -35,7 +34,8 @@ def get_songlinks(titel):
     suggestie2 = spot.search(q=titel + " " + 'From', limit=1)
 
     try:
-        return suggestie1['tracks']['items'][0]['external_urls']['spotify'], suggestie2['tracks']['items'][0]['external_urls']['spotify']
+        return suggestie1['tracks']['items'][0]['external_urls']['spotify'], \
+               suggestie2['tracks']['items'][0]['external_urls']['spotify']
     except:
         print("Helaas geen nummer gevonden")
     return None
@@ -45,8 +45,6 @@ def controleren_in_database(uniekecode):
     """
     De aanbieder controleert de code van de bezoeker, deze geeft een popup scherm met een mededeling
     :param uniekecode: De unieke code van de bezoeker
-    >>> controleren_in_database('python2015')
-    De code is correct
     >>> controleren_in_database('Deze is niet aanwezig')
     Bij deze pop-up die aangeeft dat de code niet aanwezig
     """
@@ -67,7 +65,7 @@ def controleren_in_database(uniekecode):
     if code:
         showinfo(title='', message='De Code Is Correct!')
 
-        #REMOVE PERSON WITH EVERY INFO FROM FILE
+        # REMOVE PERSON WITH EVERY INFO FROM FILE
         file = open(KlantData)
         data = file.readlines()
         file.close()
@@ -80,7 +78,6 @@ def controleren_in_database(uniekecode):
 
     elif not code:
         showinfo(title='', message='De Code Is Incorrect!')
-
 
 
 def klanten_overzicht():
@@ -108,17 +105,17 @@ def open_aanbieder_interface():
 
     first_c = Canvas(big_c, width=275, height=360, bg="lightgreen")
     first_c.place(x=10, y=10)
-    secondC = Canvas(big_c, width=275, height=360, bg="lightgreen")
-    secondC.place(x=295, y=10)
+    second_c = Canvas(big_c, width=275, height=360, bg="lightgreen")
+    second_c.place(x=295, y=10)
 
     Label(first_c, text='Hieronder kunt u alle gegevens vinden:', bg="lightgreen").place(x=10, y=10)
     Label(first_c, text='Alle bezoekers + tijden:', bg="lightgreen").place(x=10, y=30)
     Label(first_c, text=klanten_overzicht(), bg="lightgreen", justify=LEFT).place(x=10, y=50)
-    Label(secondC, text='Voer de unieke code in:', bg="lightgreen").place(x=10, y=10)
-    uniekecode = Entry(secondC)
+    Label(second_c, text='Voer de unieke code in:', bg="lightgreen").place(x=10, y=10)
+    uniekecode = Entry(second_c)
     uniekecode.place(x=10, y=30)
 
-    Button(secondC, text='Voer in', command=(lambda: controleren_in_database(uniekecode.get()))).place(x=10, y=60)
+    Button(second_c, text='Voer in', command=(lambda: controleren_in_database(uniekecode.get()))).place(x=10, y=60)
     window.mainloop()
 
 loginName = ""
@@ -180,16 +177,19 @@ def show_film_details(film):
     Label(info_c, text="Jaartal: "+jaar, bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=35)
     Label(info_c, text="Genre: "+genre.replace(":","/"), bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=60)
     Label(info_c, text="Regisseur: "+regisseur, bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=85)
-    Label(info_c, text="Duur: "+duur+ " Minuten", bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=125)
-    Label(info_c, text="Begintijd: "+time.ctime(int(starttijd)).split(" ")[3][:-3], bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=150)
-    Label(info_c, text="Eindtijd: "+time.ctime(int(eindtijd)).split(" ")[3][:-3], bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=175)
+    Label(info_c, text="Duur: "+duur + " Minuten", bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=125)
+    Label(info_c, text="Begintijd: "+time.ctime(int(starttijd)).split(" ")[3][:-3],
+          bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=150)
+    Label(info_c, text="Eindtijd: "+time.ctime(int(eindtijd)).split(" ")[3][:-3],
+          bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=175)
     Label(info_c, text="IMDB Rating: "+imdb_rating, bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=215)
     Label(info_c, text="IMDB Votes: "+imdb_votes, bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=240)
     Label(info_c, text="Prijs: €5.-", bg="lightgreen", font=("Helvetica", 13)).place(x=10, y=275)
     Label(sync_c, text="Cast: "+cast.replace(":",", "), bg="lightgreen", wraplength=550, justify=LEFT).place(x=10, y=10)
     Label(sync_c, text="Synopsis: "+sysnopsis, bg="lightgreen", wraplength=550, justify=LEFT).place(x=10, y=50)
 
-    Button(canvas, text="   Reserveer kaartje   ", font=("Helvetica", 20), command= lambda f=film: Buy_Ticket(f), bg="darkred", fg="pink").place(x=282, y=325)
+    Button(canvas, text="   Reserveer kaartje   ", font=("Helvetica", 20), command= lambda f=film: buy_ticket(f),
+           bg="darkred", fg="pink").place(x=282, y=325)
 
     w.mainloop()
 
@@ -220,11 +220,13 @@ def show_all_films_page():
     movies_Window.config(bg="darkred")
     movies_Window.geometry("1200x600")
     title_label = Label(movies_Window, text="De films van "+time.strftime("%d-%m-%Y")+":", bg="lightgreen")
-    title_label.place(x=10,y=10)
+    title_label.place(x=10, y=10)
 
     if len(todaysMovies) > 1:
-        Button(movies_Window, text="Vorige pagina", command= lambda : Next_Page(-1), bg="darkgreen", fg="lightgreen").place(x=10, y=565)
-        Button(movies_Window, text="Volgende pagina", command= lambda : Next_Page(1), bg="darkgreen", fg="lightgreen").place(x=1093, y=565)
+        Button(movies_Window, text="Vorige pagina", command=lambda: next_page(-1),
+               bg="darkgreen", fg="lightgreen").place(x=10, y=565)
+        Button(movies_Window, text="Volgende pagina", command=lambda: next_page(1),
+               bg="darkgreen", fg="lightgreen").place(x=1093, y=565)
 
     create_films()
     movies_Window.mainloop()
@@ -257,13 +259,14 @@ def create_films():
 
         Label(c, text="Titel: "+title, bg="lightgreen").place(x=10, y=310)
         Label(c, text="Jaartal: "+jaar, bg="lightgreen").place(x=10, y=330)
-        Label(c, text="Genre: "+genre.replace(":","/"), bg="lightgreen").place(x=10, y=350)
-        Label(c, text="Duur: "+duur+ " Minuten", bg="lightgreen").place(x=10, y=370)
+        Label(c, text="Genre: "+genre.replace(":", "/"), bg="lightgreen").place(x=10, y=350)
+        Label(c, text="Duur: "+duur + " Minuten", bg="lightgreen").place(x=10, y=370)
         Label(c, text="Begintijd: "+time.ctime(int(starttijd)).split(" ")[3][:-3], bg="lightgreen").place(x=10, y=390)
         Label(c, text="Eindtijd: "+time.ctime(int(eindtijd)).split(" ")[3][:-3], bg="lightgreen").place(x=10, y=410)
         Label(c, text="Prijs: €5.-", bg="lightgreen").place(x=10, y=430)
 
-        Button(c, text="Compleet overzicht", command= lambda f=film: show_film_details(f), bg="darkgreen", fg="lightgreen").place(x=10, y=450)
+        Button(c, text="Compleet overzicht", command=lambda f=film: show_film_details(f),
+               bg="darkgreen", fg="lightgreen").place(x=10, y=450)
 
         i += 1
 
@@ -271,14 +274,14 @@ def create_films():
 todaysMovies = [[]]
 
 
-def Parse_Films():
+def parse_films():
     index = 0
     i = 0
     global todaysMovies
     data = get_movies()
     for f in data["film"]:
         i += 1
-        if(i > 5):
+        if i > 5:
             todaysMovies.append([])
             index += 1
             i = 0
@@ -287,7 +290,7 @@ def Parse_Films():
 Page_Index = 0
 
 
-def Next_Page(index):
+def next_page(index):
     global Page_Index
     Page_Index += index
     if Page_Index < 0:
@@ -299,21 +302,21 @@ def Next_Page(index):
 
 def specialcode(title):
     datum = str(time.strftime("%H-%M-%S-%Y"))[::-1].replace("-", "").replace(".", "").replace(":", "").replace(" ", "")
-    return (title.lower() + datum[0:10]).replace(" ","")
+    return (title.lower() + datum[0:10]).replace(" ", "")
 
 
-def Play_Titlesong(song):
+def play_titlesong(song):
     print(song)
 
 
-def Buy_Ticket(film):
+def buy_ticket(film):
 
     file = csv.DictReader(open(KlantData, 'r'), delimiter=',')
-    ticketsSold = 0
+    tickets_sold = 0
     for row in file:
         if row["zender"] == film["zender"] and row["tijd"] == time.ctime(int(film["starttijd"])).split(" ")[3][:-3]:
-            ticketsSold += 1
-        if ticketsSold > 9:
+            tickets_sold += 1
+        if tickets_sold > 9:
             showinfo(title='Geen kaartjes beschikbaar.', message='Er kunnen geen kaartjes meer gereserveerd worden.')
             return
 
@@ -322,8 +325,8 @@ def Buy_Ticket(film):
     ticket.config(bg="darkred")
     ticket.geometry("800x400")
 
-    infoC = Canvas(ticket, width=780, height=380, bg="white")
-    infoC.place(x=10, y=10)
+    info_c = Canvas(ticket, width=780, height=380, bg="white")
+    info_c.place(x=10, y=10)
 
     title = film["titel"] if film["titel"] is not None else "Geen titel gevonden"
     jaar = film["jaar"] if film["jaar"] is not None else "-1"
@@ -335,29 +338,33 @@ def Buy_Ticket(film):
     imdb_rating = film["imdb_rating"] if film["imdb_rating"] is not None else "-1"
     imdb_votes = film["imdb_votes"] if film["imdb_votes"] is not None else "-1"
 
-    Label(infoC, text="Titel: "+title, bg="white", font=("Helvetica", 15)).place(x=10, y=5)
-    Label(infoC, text="Jaartal: "+jaar, bg="white", font=("Helvetica", 13)).place(x=10, y=35)
-    Label(infoC, text="Genre: "+genre.replace(":","/"), bg="white", font=("Helvetica", 13)).place(x=10, y=60)
-    Label(infoC, text="Regisseur: "+regisseur, bg="white", font=("Helvetica", 13)).place(x=10, y=85)
-    Label(infoC, text="Duur: "+duur+ " Minuten", bg="white", font=("Helvetica", 13)).place(x=10, y=125)
-    Label(infoC, text="Begintijd: "+time.ctime(int(starttijd)).split(" ")[3][:-3], bg="white", font=("Helvetica", 13)).place(x=10, y=150)
-    Label(infoC, text="Eindtijd: "+time.ctime(int(eindtijd)).split(" ")[3][:-3], bg="white", font=("Helvetica", 13)).place(x=10, y=175)
-    Label(infoC, text="IMDB Rating: "+imdb_rating, bg="white", font=("Helvetica", 13)).place(x=10, y=215)
-    Label(infoC, text="IMDB Votes: "+imdb_votes, bg="white", font=("Helvetica", 13)).place(x=10, y=240)
-    Label(infoC, text="Prijs: €5.-", bg="white", font=("Helvetica", 13)).place(x=10, y=275)
-    Label(infoC, text="Uw unieke code: "+ specialcode(title).replace(" ",""), bg="white", font=("Helvetica", 13)).place(x=10, y=295)
+    Label(info_c, text="Titel: "+title, bg="white", font=("Helvetica", 15)).place(x=10, y=5)
+    Label(info_c, text="Jaartal: "+jaar, bg="white", font=("Helvetica", 13)).place(x=10, y=35)
+    Label(info_c, text="Genre: "+genre.replace(":", "/"), bg="white", font=("Helvetica", 13)).place(x=10, y=60)
+    Label(info_c, text="Regisseur: "+regisseur, bg="white", font=("Helvetica", 13)).place(x=10, y=85)
+    Label(info_c, text="Duur: "+duur + " Minuten", bg="white", font=("Helvetica", 13)).place(x=10, y=125)
+    Label(info_c, text="Begintijd: "+time.ctime(int(starttijd)).split(" ")[3][:-3],
+          bg="white", font=("Helvetica", 13)).place(x=10, y=150)
+    Label(info_c, text="Eindtijd: "+time.ctime(int(eindtijd)).split(" ")[3][:-3],
+          bg="white", font=("Helvetica", 13)).place(x=10, y=175)
+    Label(info_c, text="IMDB Rating: "+imdb_rating, bg="white", font=("Helvetica", 13)).place(x=10, y=215)
+    Label(info_c, text="IMDB Votes: "+imdb_votes, bg="white", font=("Helvetica", 13)).place(x=10, y=240)
+    Label(info_c, text="Prijs: €5.-", bg="white", font=("Helvetica", 13)).place(x=10, y=275)
+    Label(info_c, text="Uw unieke code: " + specialcode(title).replace(" ", ""),
+          bg="white", font=("Helvetica", 13)).place(x=10, y=295)
     songs = get_songlinks(title)
-    if songs != None:
+    if songs is not None:
         i = 0
         for song in songs:
-            Button(infoC, text=str.format("Titlesong suggestie {0}", i+1), command=lambda s=song: webbrowser.open(s)).place(x=(i*130)+10, y=350)
+            Button(info_c, text=str.format("Titlesong suggestie {0}", i+1),
+                   command=lambda s=song: webbrowser.open(s)).place(x=(i*130)+10, y=350)
             i += 1
 
-    Label(infoC, text="Uw unieke code: ", bg="white", font=("Helvetica", 13)).place(x=400, y=60)
+    Label(info_c, text="Uw unieke code: ", bg="white", font=("Helvetica", 13)).place(x=400, y=60)
 
-    uniqueCode = specialcode(title)
-    number = pyqrcode.create(uniqueCode)
-    #number.png('sketch.png', scale=6) TODO fix this
+    unique_code = specialcode(title)
+    number = pyqrcode.create(unique_code)
+    # number.png('sketch.png', scale=6) TODO fix this
 
     load = Image.open('sketch.png')
     render = ImageTk.PhotoImage(load)
@@ -366,26 +373,27 @@ def Buy_Ticket(film):
     img.place(x=400, y=100)
 
     file = csv.writer(open(KlantData, "a", newline=''))
-    file.writerow([film["zender"], loginName, uniqueCode, time.ctime(int(starttijd)).split(" ")[3][:-3]])
+    file.writerow([film["zender"], loginName, unique_code, time.ctime(int(starttijd)).split(" ")[3][:-3]])
 
-Parse_Films()
+parse_films()
 
 window = Tk()
 label = Label(window, text='Voer uw inlognaam in:')
 label2 = Label(window, text='Voer uw emailadres in: ')
 
-naam = Entry(window)
-email = Entry(window)
+naam_veld = Entry(window)
+email_veld = Entry(window)
 
-button1 = Button(window, text='Nieuw Acount', command=lambda: showinfo(title='Nieuw account', message='Als u nog geen acount hebt, vul dan bij het inlogscherm de gewenste gegevens in.'))
+button1 = Button(window, text='Nieuw Acount', command=lambda: showinfo(
+    title='Nieuw account', message='Als u nog geen acount hebt, vul dan bij het inlogscherm de gewenste gegevens in.'))
 button1.grid(row=4, column=0)
 
 label.grid(row=0, sticky=E)
 label2.grid(row=1, sticky=E)
 
-naam.grid(row=0, column=1)
-email.grid(row=1, column=1)
+naam_veld.grid(row=0, column=1)
+email_veld.grid(row=1, column=1)
 
-button = Button(window, text='Voer in', command=lambda: antwoord(naam.get(),email.get()))
+button = Button(window, text='Voer in', command=lambda: antwoord(naam_veld.get(), email_veld.get()))
 button.grid(row=4, column=1)
 window.mainloop()
