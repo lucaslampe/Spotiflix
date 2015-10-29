@@ -11,6 +11,7 @@ import csv
 import spotipy
 import webbrowser
 
+
 klantdatafile = 'KlantData.csv'
 
 
@@ -36,6 +37,11 @@ def get_songlinks(titel):
 
 
 def controleren_in_database(uniekecode):
+    """
+    :param uniekecode:
+    :return:
+    >>> 
+    """
     print(uniekecode)
     tjeerd = False
     bestand = []
