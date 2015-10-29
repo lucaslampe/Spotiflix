@@ -41,12 +41,14 @@ def get_songlinks(titel):
     return None
     
 
-
 def controleren_in_database(uniekecode):
     """
-    :param uniekecode:
-    :return:
-    >>> 
+    De aanbieder controleert de code van de bezoeker, deze geeft een popup scherm met een mededeling
+    :param uniekecode: De unieke code van de bezoeker
+    >>> controleren_in_database('python2015')
+    De code is correct
+    >>> controleren_in_database('Deze is niet aanwezig')
+    Bij deze pop-up die aangeeft dat de code niet aanwezig
     """
     print(uniekecode)
     code = False
