@@ -10,6 +10,7 @@ import pyqrcode
 import csv
 import spotipy
 import webbrowser
+import doctest
 
 
 klantdatafile = 'KlantData.csv'
@@ -20,9 +21,13 @@ def clear_database():
 
 
 def get_songlinks(titel):
-    """
-    :param titel:
-    :return:(URL,Titel nummer, Artiest)
+    """ Vraagd de links op van de soundtracks die beschikbaar zijn.
+    >>> get_songlinks("Man on fire")
+    ('https://open.spotify.com/track/5GFfRpAb26A57ao6nxjIIS', 'https://open.spotify.com/track/5IxaywIlITiuADtbdZBiYh')
+    >>> get_songlinks("License to Bill")
+    Helaas geen nummer gevonden
+    >>> get_songlinks("License to Kill")
+    ('https://open.spotify.com/track/6GjmlZzBt2FHgLL1x3VMc5', 'https://open.spotify.com/track/1MSqN0iVTQh8115I0Ps7CF')
     """
     spot = spotipy.Spotify()
 
@@ -34,6 +39,7 @@ def get_songlinks(titel):
     except:
         print("Helaas geen nummer gevonden")
     return None
+    
 
 
 def controleren_in_database(uniekecode):
