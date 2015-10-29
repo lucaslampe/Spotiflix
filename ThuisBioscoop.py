@@ -342,7 +342,8 @@ def Buy_Ticket(film):
     Label(infoC, text="IMDB Rating: "+imdb_rating, bg="white", font=("Helvetica", 13)).place(x=10, y=215)
     Label(infoC, text="IMDB Votes: "+imdb_votes, bg="white", font=("Helvetica", 13)).place(x=10, y=240)
     Label(infoC, text="Prijs: €5.-", bg="white", font=("Helvetica", 13)).place(x=10, y=275)
-    Label(infoC, text="Uw unieke code: "+ specialcode(title).replace(" ",""), bg="white", font=("Helvetica", 13)).place(x=10, y=295)
+    uniekecode = specialcode(title).replace(" ","")
+    Label(infoC, text="Uw unieke code: "+ uniekecode, bg="white", font=("Helvetica", 13)).place(x=10, y=295)
     songs = get_songlinks(title)
     if songs != None:
         i = 0
@@ -352,9 +353,8 @@ def Buy_Ticket(film):
 
     Label(infoC, text="Uw unieke code: ", bg="white", font=("Helvetica", 13)).place(x=400, y=60)
 
-    uniqueCode = specialcode(title)
-    number = pyqrcode.create(uniqueCode)
-    #number.png('sketch.png', scale=6) TODO fix this
+    number = pyqrcode.create(uniekecode)
+    number.png('sketch.png', scale=6)
 
     load = Image.open('sketch.png')
     render = ImageTk.PhotoImage(load)
@@ -363,7 +363,7 @@ def Buy_Ticket(film):
     img.place(x=400, y=100)
 
     file = csv.writer(open(klantdatafile, "a", newline=''))
-    file.writerow([film["zender"], loginName, uniqueCode, time.ctime(int(starttijd)).split(" ")[3][:-3]])
+    file.writerow([film["zender"], loginName, uniekecode, time.ctime(int(starttijd)).split(" ")[3][:-3]])
 
 Parse_Films()
 
