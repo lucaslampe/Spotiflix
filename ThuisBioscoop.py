@@ -10,10 +10,10 @@ import pyqrcode
 import csv
 import spotipy
 import webbrowser
-import doctest
+import zandbak
 
 
-klantdatafile = 'KlantData.csv'
+KlantData = 'KlantData.csv'
 
 
 def clear_database():
@@ -49,10 +49,10 @@ def controleren_in_database(uniekecode):
     >>> 
     """
     print(uniekecode)
-    tjeerd = False
+    code = False
     bestand = []
     try:
-        f = open(klantdatafile, 'r')
+        f = open(KlantData, 'r')
         reader = csv.DictReader(f, delimiter=',')
         for i in reader:
             bestand.append(i)
@@ -61,29 +61,30 @@ def controleren_in_database(uniekecode):
 
     for i in bestand:
         if i['kaartcode'] == str(uniekecode):
-            tjeerd = True
-    if tjeerd:
+            code = True
+    if code:
         showinfo(title='', message='De Code Is Correct!')
 
         #REMOVE PERSON WITH EVERY INFO FROM FILE
-        file = open(klantdatafile)
+        file = open(KlantData)
         data = file.readlines()
         file.close()
 
-        writablefile = open(klantdatafile, "w")
+        writablefile = open(KlantData, "w")
         for row in data:
             if not str(uniekecode) == row.split(",")[2]:
                 writablefile.write(row)
         writablefile.close()
 
-    elif not tjeerd:
+    elif not code:
         showinfo(title='', message='De Code Is Incorrect!')
+
 
 
 def klanten_overzicht():
     try:
         global loginName
-        k = open(klantdatafile, 'r')
+        k = open(KlantData, 'r')
         reader = csv.DictReader(k, delimiter=',')
         klantenismooi = ''
         for row in reader:
@@ -305,7 +306,7 @@ def Play_Titlesong(song):
 
 def Buy_Ticket(film):
 
-    file = csv.DictReader(open(klantdatafile, 'r'), delimiter=',')
+    file = csv.DictReader(open(KlantData, 'r'), delimiter=',')
     ticketsSold = 0
     for row in file:
         if row["zender"] == film["zender"] and row["tijd"] == time.ctime(int(film["starttijd"])).split(" ")[3][:-3]:
@@ -362,7 +363,7 @@ def Buy_Ticket(film):
     img.image = render
     img.place(x=400, y=100)
 
-    file = csv.writer(open(klantdatafile, "a", newline=''))
+    file = csv.writer(open(KlantData, "a", newline=''))
     file.writerow([film["zender"], loginName, uniqueCode, time.ctime(int(starttijd)).split(" ")[3][:-3]])
 
 Parse_Films()
