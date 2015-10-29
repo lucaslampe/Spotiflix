@@ -338,20 +338,19 @@ def buy_ticket(film):
     imdb_rating = film["imdb_rating"] if film["imdb_rating"] is not None else "-1"
     imdb_votes = film["imdb_votes"] if film["imdb_votes"] is not None else "-1"
 
-<<<<<<< HEAD
-    Label(infoC, text="Titel: "+title, bg="white", font=("Helvetica", 15)).place(x=10, y=5)
-    Label(infoC, text="Jaartal: "+jaar, bg="white", font=("Helvetica", 13)).place(x=10, y=35)
-    Label(infoC, text="Genre: "+genre.replace(":","/"), bg="white", font=("Helvetica", 13)).place(x=10, y=60)
-    Label(infoC, text="Regisseur: "+regisseur, bg="white", font=("Helvetica", 13)).place(x=10, y=85)
-    Label(infoC, text="Duur: "+duur+ " Minuten", bg="white", font=("Helvetica", 13)).place(x=10, y=125)
-    Label(infoC, text="Begintijd: "+time.ctime(int(starttijd)).split(" ")[3][:-3], bg="white", font=("Helvetica", 13)).place(x=10, y=150)
-    Label(infoC, text="Eindtijd: "+time.ctime(int(eindtijd)).split(" ")[3][:-3], bg="white", font=("Helvetica", 13)).place(x=10, y=175)
-    Label(infoC, text="IMDB Rating: "+imdb_rating, bg="white", font=("Helvetica", 13)).place(x=10, y=215)
-    Label(infoC, text="IMDB Votes: "+imdb_votes, bg="white", font=("Helvetica", 13)).place(x=10, y=240)
-    Label(infoC, text="Prijs: €5.-", bg="white", font=("Helvetica", 13)).place(x=10, y=275)
+    Label(info_c, text="Titel: "+title, bg="white", font=("Helvetica", 15)).place(x=10, y=5)
+    Label(info_c, text="Jaartal: "+jaar, bg="white", font=("Helvetica", 13)).place(x=10, y=35)
+    Label(info_c, text="Genre: "+genre.replace(":","/"), bg="white", font=("Helvetica", 13)).place(x=10, y=60)
+    Label(info_c, text="Regisseur: "+regisseur, bg="white", font=("Helvetica", 13)).place(x=10, y=85)
+    Label(info_c, text="Duur: "+duur+ " Minuten", bg="white", font=("Helvetica", 13)).place(x=10, y=125)
+    Label(info_c, text="Begintijd: "+time.ctime(int(starttijd)).split(" ")[3][:-3], bg="white", font=("Helvetica", 13)).place(x=10, y=150)
+    Label(info_c, text="Eindtijd: "+time.ctime(int(eindtijd)).split(" ")[3][:-3], bg="white", font=("Helvetica", 13)).place(x=10, y=175)
+    Label(info_c, text="IMDB Rating: "+imdb_rating, bg="white", font=("Helvetica", 13)).place(x=10, y=215)
+    Label(info_c, text="IMDB Votes: "+imdb_votes, bg="white", font=("Helvetica", 13)).place(x=10, y=240)
+    Label(info_c, text="Prijs: €5.-", bg="white", font=("Helvetica", 13)).place(x=10, y=275)
     uniekecode = specialcode(title).replace(" ","")
-    Label(infoC, text="Uw unieke code: "+ uniekecode, bg="white", font=("Helvetica", 13)).place(x=10, y=295)
-=======
+    Label(info_c, text="Uw unieke code: "+ uniekecode, bg="white", font=("Helvetica", 13)).place(x=10, y=295)
+
     Label(info_c, text="Titel: "+title, bg="white", font=("Helvetica", 15)).place(x=10, y=5)
     Label(info_c, text="Jaartal: "+jaar, bg="white", font=("Helvetica", 13)).place(x=10, y=35)
     Label(info_c, text="Genre: "+genre.replace(":", "/"), bg="white", font=("Helvetica", 13)).place(x=10, y=60)
@@ -366,7 +365,7 @@ def buy_ticket(film):
     Label(info_c, text="Prijs: €5.-", bg="white", font=("Helvetica", 13)).place(x=10, y=275)
     Label(info_c, text="Uw unieke code: " + specialcode(title).replace(" ", ""),
           bg="white", font=("Helvetica", 13)).place(x=10, y=295)
->>>>>>> doctestJeroen
+
     songs = get_songlinks(title)
     if songs is not None:
         i = 0
@@ -377,14 +376,13 @@ def buy_ticket(film):
 
     Label(info_c, text="Uw unieke code: ", bg="white", font=("Helvetica", 13)).place(x=400, y=60)
 
-<<<<<<< HEAD
+
     number = pyqrcode.create(uniekecode)
     number.png('sketch.png', scale=6)
-=======
+
     unique_code = specialcode(title)
     number = pyqrcode.create(unique_code)
     # number.png('sketch.png', scale=6) TODO fix this
->>>>>>> doctestJeroen
 
     load = Image.open('sketch.png')
     render = ImageTk.PhotoImage(load)
@@ -392,13 +390,12 @@ def buy_ticket(film):
     img.image = render
     img.place(x=400, y=100)
 
-<<<<<<< HEAD
-    file = csv.writer(open(klantdatafile, "a", newline=''))
+    file = csv.writer(open(KlantData, "a", newline=''))
     file.writerow([film["zender"], loginName, uniekecode, time.ctime(int(starttijd)).split(" ")[3][:-3]])
-=======
+
     file = csv.writer(open(KlantData, "a", newline=''))
     file.writerow([film["zender"], loginName, unique_code, time.ctime(int(starttijd)).split(" ")[3][:-3]])
->>>>>>> doctestJeroen
+
 
 parse_films()
 
