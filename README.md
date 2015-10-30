@@ -7,6 +7,17 @@
 
 ## Documentatie
 
+Om **Spotiflix** te kunnen gebruiken moeten er een aantal packages worden geïnstalleerd, namelijk:
+
+* [PyPNG](https://github.com/drj11/pypng)
+* [Spotipy](https://github.com/plamere/spotipy)
+* [Pillow PIL](https://github.com/python-pillow/Pillow)
+* [xmltodict](https://github.com/martinblech/xmltodict)
+* [PyQRCode](https://github.com/mnooner256/pyqrcode)
+
+Na deze packages te hebben geïnstalleerd zijn we gereed om het programma uit te voeren.
+Dit kunt u doen door dit project te openen in [PyCharm](https://www.jetbrains.com/pycharm/) en `ThuisBioscoop.py` te runnen.
+
 Voor zowel gebruikers als aanbieders is **Spotiflix** een zeer gemakkelijk programma in gebruik.
 Een account aan maken is zo gedaan. Voer uw gebruikersnaam en e-mailadres in en u bent klaar om te beginnen.
 
